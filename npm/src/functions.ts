@@ -18,7 +18,7 @@ function stringifyBigInt (obj: Record<string, unknown>): string {
 
         return value;
     });
-    
+
     return str;
 }
 
@@ -76,6 +76,11 @@ async function initializeSdk(options: ConfigOptions): Promise<{ discordSdk: Disc
     (user as CompatibleUser).bot = false;
 
     return { discordSdk, user: (user as CompatibleUser) };
+}
+
+export function getAuthCode()
+{
+    return 1;
 }
 
 //\ Initialize the SDK and setup the bridge
@@ -159,7 +164,7 @@ export async function setupSdk(options: ConfigOptions) {
                 if (args.activity.party?.id == "") delete args.activity.party;
                 if (args.activity.emoji?.id == "") delete args.activity.emoji;
                 if (args.activity.secrets?.match == "") delete args.activity.secrets;
-                
+
                 try {
                     const data = await discordSdk!.commands.setActivity(args);
                     getChildIframe().contentWindow?.postMessage({ nonce, event, command, data }, "*");
